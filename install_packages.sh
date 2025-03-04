@@ -27,7 +27,7 @@ utils=(
     cliphist
     flatpak
     yazi
-    vim
+    neovim
     nano
     thunar
     vscode
@@ -40,7 +40,7 @@ extras=(
 )
 
 # install packages
-all_packages=("${core_packages[@]}" "${utils[@]}")
+all_packages=("${core_packages[@]}" "${utils[@]}" "${extras[@]}")
 
 sudo pacman -S --needed --noconfirm "${all_packages[@]}"
 
@@ -52,3 +52,19 @@ sudo pacman -S --needed --noconfirm git base-devel
 git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si
+
+# systemctl service enabler
+declare -A service_map=(
+    ["networkmanager"]="NetworkManager"
+    ["bluez"]="bluetooth"
+    ["greetd"]="greetd"
+    ["pipewire"]="pipewire pipewire-pulse"
+    ["wireplumber"]="wireplumber"
+)
+
+for pkg in "${!service_map[@]}"; do
+    if pacman -Qi "$pkg" &>/dev/null; then
+        echo "Enabling services for $pkg: ${service_map[$pkg]}"
+        sudo systemctl enable ${service_map[$pkg]}
+    fi
+done
