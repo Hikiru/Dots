@@ -12,8 +12,7 @@ core_packages=(
     bluez
     qt5-wayland
     qt6-wayland
-    greetd
-    greetd-regreet
+    ly
 )
 
 utils=(
@@ -21,6 +20,7 @@ utils=(
     hypridle
     hyprpicker
     hyprpaper
+    swww
     waybar
     fuzzel
     swaync
@@ -29,7 +29,7 @@ utils=(
     yazi
     neovim
     nano
-    thunar
+    dolphin
     vscode
     gparted
 )
